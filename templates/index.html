@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+</head>
+<body>
+<form method="post" id="myDIV" class="header">
+    {% csrf_token %}
+    <h2 style="margin:5px">My To Do List</h2>
+    {#    передаем input из django-forms #}
+    {{ form }}
+    <input onclick="newElement()" class="addBtn" type="submit" value="OK">
+</form>
+
+<ul id="myUL">
+    {#   заполняем таблицу задачами из базы данных #}
+    {% for x in todo %}
+        {# добавляем класс checked в зависимости от статуса  #}
+        {% if x.done %}
+            <li id="{{ x.id }}" class="checked">{{ x.text }}</li>
+        {% else %}
+            <li id="{{ x.id }}">{{ x.text }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+</body>
+</html>
