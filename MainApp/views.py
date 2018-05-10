@@ -11,7 +11,7 @@ def main(request):
         if request.is_ajax():
             if request.POST.get('done'):
                 obj = DoList.objects.get(pk=request.POST['id'])
-                obj.done = True if request.POST['done'] == 'true' else False
+                obj.done = request.POST['done'] == 'true'
                 obj.save()
             elif request.POST.get('text'):
                 form = PostForm(request.POST)
